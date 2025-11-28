@@ -1,0 +1,306 @@
+/* Modal y estados */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.modal-content h3 {
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.modal-content p {
+    margin-bottom: 25px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.btn {
+    padding: 12px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.3s;
+    border: none;
+}
+
+.btn-primary {
+    background-color: #5FD068;
+    color: white;
+    width: 100%;
+}
+
+.btn-primary:hover {
+    background-color: #52C77A;
+}
+
+/* Botón de limpiar (form) - por defecto blanco, pasa a verde cuando está activo el modo eléctrico */
+.btn-clear-form {
+    background-color: #ffffff;
+    color: #5FD068;
+    padding: 10px 14px;
+    border-radius: 6px;
+    border: 1px solid rgba(0,0,0,0.06);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-clear-form:hover {
+    background-color: #f5f5f5;
+}
+
+.btn-primary:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+.btn-cancel {
+    background-color: #f5f5f5;
+    color: #666;
+    border: 1px solid #ddd;
+}
+
+.btn-cancel:hover {
+    background-color: #e0e0e0;
+}
+
+.btn-danger {
+    background-color: #d32f2f;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c62828;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+}
+
+.error-message {
+    background-color: #ffebee;
+    color: #c62828;
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 15px;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+}
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: var(--primary-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 15px;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Estilos nocturnos para componentes */
+body.electric-active .modal {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+body.electric-active .modal-content {
+    background: linear-gradient(135deg, #1a2e1d 0%, #152820 100%);
+    color: #e0f5e4;
+    box-shadow: 0 0 30px rgba(82, 199, 122, 0.2);
+}
+
+body.electric-active .modal-content h3 {
+    color: #52C77A;
+}
+
+body.electric-active .modal-content p {
+    color: #7ee68a;
+}
+
+body.electric-active .btn {
+    font-weight: 600;
+}
+
+body.electric-active .btn-primary {
+    background-color: #5FD068;
+    color: white;
+}
+
+body.electric-active .btn-primary:hover {
+    background-color: #52C77A;
+}
+
+/* Asegurar que el botón limpiar también responde al modo eléctrico */
+body.electric-active .btn-clear-form {
+    background-color: #5FD068;
+    color: white;
+}
+
+body.electric-active .btn-clear-form:hover {
+    background-color: #52C77A;
+}
+
+body.electric-active .btn-cancel {
+    background-color: #203d2a;
+    color: #7ee68a;
+    border-color: rgba(82, 199, 122, 0.2);
+}
+
+body.electric-active .btn-cancel:hover {
+    background-color: #2a5540;
+    border-color: #52C77A;
+}
+
+body.electric-active .error-message {
+    background-color: rgba(211, 47, 47, 0.2);
+    color: #ff6b6b;
+    border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+body.electric-active .empty-state {
+    color: #6fd87a;
+}
+
+body.electric-active .empty-state h3 {
+    color: #52C77A;
+}
+
+body.electric-active .spinner {
+    border-color: rgba(82, 199, 122, 0.1);
+    border-left-color: #52C77A;
+}
+
+/* Efecto eléctrico específico para el botón de borrar historial */
+.electric-btn-active {
+    position: relative;
+    filter: url(#turbulent-displace);
+    box-shadow: 0 0 18px rgba(82, 199, 122, 0.85);
+    transition: box-shadow 0.2s ease, opacity 0.2s ease, transform 0.2s ease;
+    z-index: 2;
+}
+
+.electric-btn-active::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(95,208,104,0.12), rgba(82,199,122,0.18));
+    mix-blend-mode: screen;
+    opacity: 1;
+    transition: opacity 0.6s ease;
+}
+
+.electric-btn-fade {
+    /* Inicia el desvanecimiento visual; la eliminación del filtro se hará desde JS al terminar */
+    animation: electric-fade-out 0.7s ease forwards;
+}
+
+@keyframes electric-fade-out {
+    0% {
+        opacity: 1;
+        transform: scale(1);
+        box-shadow: 0 0 18px rgba(82, 199, 122, 0.85);
+    }
+    60% {
+        opacity: 0.6;
+        transform: scale(0.995);
+        box-shadow: 0 0 8px rgba(82, 199, 122, 0.5);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.995);
+        box-shadow: 0 0 0 rgba(82, 199, 122, 0);
+    }
+}
+
+/* Efecto alternativo para el botón de borrar historial: overlay sin bordes ni filtro SVG */
+.electric-btn-simple {
+    position: relative;
+    overflow: hidden;
+}
+
+.electric-btn-simple::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(120deg, rgba(95,208,104,0.14) 0%, rgba(82,199,122,0.18) 50%, rgba(95,208,104,0.12) 100%);
+    transform: translateX(-120%);
+    opacity: 0.0;
+}
+
+/* Animación principal que se desplaza sobre el botón (sin alterar bordes) */
+.electric-btn-simple-anim::before {
+    animation: slideOverlay 2.4s linear forwards;
+    opacity: 1;
+}
+
+@keyframes slideOverlay {
+    0% { transform: translateX(-120%); opacity: 0.0; }
+    20% { opacity: 1.0; }
+    60% { transform: translateX(0%); opacity: 1.0; }
+    100% { transform: translateX(120%); opacity: 0.0; }
+}
+
+/* Fade final para camuflar la retirada de la animación */
+.electric-btn-simple-fade {
+    animation: simple-fade-out 0.7s ease forwards;
+}
+
+@keyframes simple-fade-out {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.997); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Clase que aplica distorsión al botón usando el filtro SVG durante un periodo fijo */
+.electric-btn-distort {
+    position: relative;
+    /* Mantener la clase por compatibilidad, pero desactivar cualquier efecto visual */
+    filter: none !important;
+    box-shadow: none !important;
+    animation: none !important;
+    transform: none !important;
+}
+
+/* Eliminar la animación de vibración */
+/* @keyframes btn-wiggle {
+    0% { transform: translate(0,0) rotate(0deg); }
+    25% { transform: translate(-0.6px,0.4px) rotate(-0.3deg); }
+    50% { transform: translate(0.6px,-0.4px) rotate(0.3deg); }
+    75% { transform: translate(-0.4px,0.2px) rotate(-0.2deg); }
+    100% { transform: translate(0,0) rotate(0deg); }
+} */

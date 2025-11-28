@@ -1,0 +1,16 @@
+{
+  "name": "calculadora-nutricion",
+  "version": "1.0.0",
+  "description": "Aplicación web para consultar información nutricional de alimentos",
+  "type": "module",
+  "scripts": {
+    "dev": "python -m http.server 8000",
+    "build": "echo 'No build step required'"
+  },
+  "keywords": ["nutrition", "calculator", "health", "calorias","calculadora", "web-app"],
+  "author": "<Gerydev/>",
+  "license": "MIT",
+  "devDependencies": {
+    "@vercel/static-build": "^1.0.0"
+  }
+}

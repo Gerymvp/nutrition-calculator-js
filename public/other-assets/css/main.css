@@ -1,0 +1,323 @@
+/* Variables CSS */
+:root {
+    --primary-color: #5FD068;
+    --primary-dark: #4CAF50;
+    --text-color: #333;
+    --border-color: #ddd;
+    --shadow: 0 2px 10px rgba(0,0,0,0.1);
+    /* Variables para el Efecto Eléctrico */
+    --electric-border-color: #52C77A;
+    --electric-light-color: rgba(82, 199, 122, 0.7);
+    --electric-glow-color: rgba(82, 199, 122, 0.4);
+}
+
+/* Reset y estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: var(--text-color);
+    line-height: 1.6;
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+/* Tema nocturno cuando está activo el efecto eléctrico */
+body.electric-active {
+    background: linear-gradient(135deg, #0d1b0f 0%, #1a2e1d 50%, #0f2418 100%);
+    color: #e0f5e4;
+}
+
+body.electric-active .container {
+    color: #e0f5e4;
+}
+
+body.electric-active h1,
+body.electric-active h2,
+body.electric-active h3 {
+    color: #52C77A;
+}
+
+body.electric-active header {
+    border-bottom-color: rgba(82, 199, 122, 0.2);
+}
+
+body.electric-active .search-panel,
+body.electric-active .results-panel,
+body.electric-active .history-panel {
+    background: linear-gradient(135deg, #1a2e1d 0%, #152820 100%);
+    color: #e0f5e4;
+    box-shadow: 0 4px 20px rgba(82, 199, 122, 0.1);
+}
+
+body.electric-active .search-panel .inner-content,
+body.electric-active .results-panel .inner-content,
+body.electric-active .history-panel .inner-content {
+    background: transparent;
+}
+
+body.electric-active input,
+body.electric-active select {
+    background-color: #203d2a;
+    color: #e0f5e4;
+    border-color: rgba(82, 199, 122, 0.2);
+}
+
+body.electric-active input:focus,
+body.electric-active select:focus {
+    border-color: #52C77A;
+    box-shadow: 0 0 10px rgba(82, 199, 122, 0.3);
+}
+
+body.electric-active label {
+    color: #7ee68a;
+}
+
+body.electric-active .subtitle {
+    color: #6fd87a;
+}
+
+body.electric-active footer {
+    border-top-color: rgba(82, 199, 122, 0.2);
+    color: #6fd87a;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+h1 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+}
+
+h2 { 
+    font-family: 'Poppins', sans-serif; 
+    font-weight: 700; 
+}
+
+/* Botón G (github-btn) */
+.btn-github {
+    position: fixed; 
+    top: 20px; 
+    right: 20px; 
+    width: 45px; 
+    height: 45px;
+    border-radius: 50%; 
+    background-color: var(--primary-color);
+    color: white; 
+    border: none; 
+    font-size: 18px; 
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+/* ESTILOS BASE DE LAS SECCIONES - MODIFICADO PARA EL EFECTO */
+.search-panel, .results-panel, .history-panel {
+    background: white;
+    border-radius: 8px;
+    position: relative;
+    overflow: visible;
+    box-shadow: var(--shadow);
+    transition: all 0.5s ease-out;
+    padding: 25px;
+}
+
+/* Contenedor interior para el contenido original y padding */
+.electric-card .inner-content {
+    position: relative;
+    z-index: 10;
+    background: inherit;
+}
+
+/* Capas del efecto eléctrico */
+.electric-card .glow-layer-1,
+.electric-card .glow-layer-2,
+.electric-card .overlay-1,
+.electric-card .overlay-2,
+.electric-card .background-glow {
+    position: absolute;
+    top: -2px; 
+    left: -2px; 
+    right: -2px; 
+    bottom: -2px;
+    border-radius: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease, filter 0.3s ease;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* ESTADO ACTIVO - Efecto en hover cuando electric-active está activo */
+.electric-active .electric-card:hover .glow-layer-1 {
+    opacity: 1;
+    border: 1px solid var(--electric-border-color);
+    filter: blur(0.5px) url(#turbulent-displace);
+    box-shadow: 0 0 8px rgba(0,255,251,0.5);
+}
+
+.electric-active .electric-card:hover .glow-layer-2 {
+    opacity: 0.6;
+    border: 1px solid var(--electric-light-color);
+    filter: blur(2px) url(#turbulent-displace);
+    box-shadow: 0 0 12px rgba(0,255,251,0.3);
+}
+
+.electric-active .electric-card:hover .overlay-1,
+.electric-active .electric-card:hover .overlay-2 {
+    opacity: 0.4;
+    background: linear-gradient(-30deg, rgba(255,255,255,0.5), transparent 30%, transparent 70%, rgba(255,255,255,0.5));
+    mix-blend-mode: overlay;
+    transform: scale(1.02);
+    filter: blur(6px);
+}
+
+.electric-active .electric-card:hover .background-glow {
+    opacity: 0.5;
+    background: radial-gradient(
+        50% 50% at 50% 50%,
+        rgba(0, 255, 251, 0.2) 0%,
+        transparent 70%
+    );
+    filter: blur(15px);
+    box-shadow: 0 0 25px rgba(0, 255, 251, 0.2);
+}
+
+/* Borde permanente cuando el efecto está activo en cualquier elemento */
+.electric-active .electric-card {
+    border: 0.5px solid rgba(0, 255, 251, 0.1);
+}
+
+/* Otros estilos necesarios */
+.search-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 20px; 
+}
+
+.btn-clear-form { 
+    background-color: #f5f5f5; 
+    color: #666; 
+    border: 1px solid #ddd; 
+    padding: 8px 16px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-size: 14px; 
+    transition: all 0.3s; 
+}
+
+.form-group { 
+    margin-bottom: 20px; 
+}
+
+label { 
+    display: block; 
+    margin-bottom: 8px; 
+    font-weight: 600; 
+}
+
+input, select { 
+    width: 100%; 
+    padding: 12px; 
+    border: 1px solid var(--border-color); 
+    border-radius: 4px; 
+    font-size: 16px; 
+}
+
+.history-panel { 
+    margin-top: 20px; 
+}
+
+.history-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 20px; 
+}
+
+.history-list { 
+    max-height: 300px; 
+    overflow-y: auto; 
+}
+
+.history-item { 
+    display: flex; 
+    justify-content: space-between; 
+    padding: 10px 0; 
+    border-bottom: 1px solid var(--border-color); 
+}
+
+.btn-clear { 
+    background-color: #d32f2f; 
+    color: white; 
+    border: none; 
+    padding: 8px 16px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    transition: all 0.3s; 
+}
+
+.results-header { 
+    margin-bottom: 20px; 
+}
+
+.nutrition-facts { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 15px; 
+    margin-top: 20px; 
+}
+
+.fact-item { 
+    text-align: center; 
+    padding: 10px; 
+    border: 1px solid #eee; 
+    border-radius: 4px; 
+}
+
+.nutrition-value { 
+    font-size: 1.5rem; 
+    font-weight: 700; 
+    color: var(--primary-color); 
+}
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px 0;
+    color: #666;
+    font-size: 0.9rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Animación de brillo para el efecto eléctrico */
+@keyframes electric-pulse {
+    0%, 100% {
+        box-shadow: 0 0 8px rgba(0, 255, 251, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(0, 255, 251, 0.5);
+    }
+}
+
+.electric-active .electric-card:hover {
+    animation: electric-pulse 2s ease-in-out infinite;
+}

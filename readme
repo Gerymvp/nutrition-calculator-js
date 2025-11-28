@@ -1,0 +1,239 @@
+🥗 Calculadora de Nutrición - Aplicación Web
+Una aplicación web moderna y responsiva para consultar información nutricional de alimentos, diseñada como proyecto de portafolio con arquitectura escalable y experiencia de usuario optimizada.
+
+https://img.shields.io/badge/version-1.0.0-blue.svg
+https://img.shields.io/badge/license-MIT-green.svg
+
+✨ Características Principales
+🔍 Búsqueda Inteligente: Búsqueda de alimentos por nombre y porción (gramos) con soporte para sinónimos en español
+
+📊 Base de Datos Local: ~100 alimentos con datos nutricionales aproximados
+
+🔄 Variantes Avanzadas: Soporte para estados crudo/cocido con lógica de matching priorizada
+
+📈 Historial Persistente: Almacenamiento local con capacidad de limpieza mediante modal de confirmación
+
+🎨 Efectos Visuales: Tema nocturno y efectos "eléctricos" implementados con SVG + CSS
+
+📱 Diseño Responsive: Experiencia optimizada para todos los dispositivos
+
+🚀 Instalación y Ejecución
+
+
+Prerrequisitos
+Navegador web moderno
+
+Python 3.x (opcional, para servidor local)
+
+Métodos de Ejecución
+Opción 1: Servidor Python (Recomendado)
+
+bash
+cd "c:\Users\Admin\Desktop\Study\Proyectos\calculadora-nutricion"
+python -m http.server 8000
+# Acceder a: http://localhost:8000
+Opción 2: Live Server (VS Code)
+
+Instalar extensión "Live Server"
+
+Click derecho en index.html → "Open with Live Server"
+
+Opción 3: Servidor Node.js
+
+bash
+npx serve .
+
+
+🏗️ Arquitectura del Proyecto
+text
+calculadora-nutricion/
+├── index.html                 # Punto de entrada principal
+├── assets/
+│   ├── css/
+│   │   └── main.css          # Estilos consolidados
+│   └── data/                 # (Futura ubicación recomendada)
+├── 01-css/                   # Hojas de estilo originales
+│   ├── main.css
+│   ├── components.css
+│   └── responsive-new.css
+├── 02-js/                    # Lógica de aplicación
+│   ├── app.js               # Orquestador principal
+│   ├── api.js               # Gestión de datos y búsquedas
+│   ├── ui.js                # Interfaz de usuario
+│   └── electric-init.js     # Efectos visuales
+└── 03-assets/data/          # Base de datos local
+    ├── common-foods.json    # Datos nutricionales
+    └── synonyms.json        # Mapeo de sinónimos
+
+
+📁 Documentación Técnica
+Módulos JavaScript
+Archivo	Responsabilidad
+api.js	Carga de datos locales, normalización, función searchFood()
+ui.js	Gestión de formularios, renderizado, historial, efectos
+app.js	Inicialización y coordinación de módulos
+electric-init.js	Configuración de efectos visuales
+Estructura de Datos
+Alimento Ejemplo:
+
+json
+{
+  "name": "arroz blanco",
+  "calories": 130,
+  "protein": 2.7,
+  "carbs": 28.2,
+  "fat": 0.3,
+  "variants": {
+    "raw": {"calories": 360, "protein": 6.6, "carbs": 79.3, "fat": 0.6},
+    "cooked": {"calories": 130, "protein": 2.7, "carbs": 28.2, "fat": 0.3}
+  }
+}
+
+Algoritmo de Búsqueda
+La búsqueda implementa un sistema de priorización multi-nivel:
+
+Coincidencia Exacta → Nombre exacto del alimento
+
+Variante Específica → Estado crudo/cocido
+
+Sinónimo → Mapeo desde synonyms.json
+
+Substring → Búsqueda parcial con normalización
+
+
+🧪 Testing y Verificación
+Casos de Prueba Recomendados
+bash
+# Flujo de búsqueda básica
+1. "arroz blanco" → 100g → Variante: Auto
+2. "pollo" → 150g → Variante: Cocido
+3. "manzana" → 200g → Variante: Crudo
+
+# Casos edge
+4. "No existe" → Verificar manejo de errores
+5. Historial → Limpieza con modal de confirmación
+Verificación de Consola
+Si existen problemas de carga:
+
+Abrir DevTools (F12)
+
+Revisar pestaña Network
+
+Verificar status de archivos JSON
+
+Confirmar ausencia de errores CORS
+
+⚙️ Configuración
+Parámetros de Efectos Visuales
+En 02-js/ui.js:
+
+javascript
+const EFFECT_CONFIG = {
+  TOTAL: 2000,    // Duración total en ms
+  FADE: 500       // Tiempo de fade final
+};
+Personalización de Estilos
+Variables CSS principales en assets/css/main.css:
+
+css
+:root {
+  --primary-color: #2c5530;
+  --secondary-color: #4a7c59;
+  --accent-color: #8fb996;
+  --text-primary: #333333;
+  --background: #ffffff;
+}
+
+
+🔄 Roadmap y Mejoras Futuras
+Prioridad Alta
+Migrar archivos a estructura assets/ estandarizada
+
+Implementar manejo de errores robusto
+
+Añadir validación de datos de entrada
+
+Prioridad Media
+Integración con API externa (Nutritionix)
+
+Sistema de caching para mejor performance
+
+Internacionalización (múltiples idiomas)
+
+Prioridad Baja
+Tests unitarios con Jest
+
+PWA capabilities
+
+Exportación de reportes PDF
+
+
+🐛 Solución de Problemas
+Problemas Comunes
+JSON no carga:
+
+Verificar servidor local (no abrir directamente el HTML)
+
+Revisar rutas en api.js
+
+Confirmar que archivos existen
+
+Efectos no funcionan:
+
+Verificar que SVG filter esté en index.html
+
+Revisar consola por errores JavaScript
+
+Búsquedas vacías:
+
+Confirmar formato de synonyms.json
+
+Verificar normalización de texto
+
+
+🤝 Contribución
+¡Las contribuciones son bienvenidas! Por favor:
+
+Fork del proyecto
+
+Crear feature branch (git checkout -b feature/AmazingFeature)
+
+Commit de cambios (git commit -m 'Add AmazingFeature')
+
+Push al branch (git push origin feature/AmazingFeature)
+
+Abrir Pull Request
+
+Guía de Estilo
+Seguir convenciones JavaScript ES6+
+
+Mantener consistencia con arquitectura modular
+
+Documentar nuevas funciones
+
+Probar en múltiples navegadores
+
+
+📄 Licencia 
+Distribuido bajo licencia MIT. Ver LICENSE para más información.
+
+
+📞 Soporte
+Si encuentras algún problema:
+
+Revisa la sección de solución de problemas
+
+Abre un issue en el repositorio
+
+Proporciona detalles del entorno y pasos para reproducir
+
+
+Nota: Los datos nutricionales son aproximados y para fines de desarrollo. 
+Verificar con fuentes autorizadas para uso en producción.
+
+
+<div align="center">
+
+	Desarrollado con ❤️ para la comunidad de desarrollo web
+
+</div>
